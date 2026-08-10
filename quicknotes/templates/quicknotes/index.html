@@ -1,0 +1,33 @@
+{% extends "quicknotes/quicknotes.html" %}
+{% block title %}My notes{% endblock %}
+
+{% block body %}
+<div class="page-shell">
+    <section class="panel note-panel">
+        <div class="panel-header">
+            <h1>Quick Notes</h1>
+        </div>
+
+        <div class="note-list">
+            {% for note in notes %}
+            <a class="note-card" href='/notes/{{ note.id }}/'>{{ note.title }}</a>
+            {% empty %}
+            <p class="empty-state">No notes yet. Add your first one below.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="panel form-panel">
+        <h2>Add a note</h2>
+        <form action="{% url 'add' %}" method="POST" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ form }}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add note</button>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}
