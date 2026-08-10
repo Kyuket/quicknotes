@@ -5,7 +5,7 @@ from .models import Note
 from .forms import NoteForm
 
 def home(request):
-    return HttpResponse("Welcome Home!")
+    return redirect('notes')
 
 def notes(request):
     data = Note.objects.all()
