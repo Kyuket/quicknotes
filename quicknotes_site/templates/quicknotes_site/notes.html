@@ -1,4 +1,4 @@
-{% extends "quicknotes/quicknotes.html" %}
+{% extends "quicknotes_site/base.html" %}
 {% block title %}My notes{% endblock %}
 
 {% block body %}
@@ -10,7 +10,7 @@
 
         <div class="note-list">
             {% for note in notes %}
-            <a class="note-card" href='/notes/{{ note.id }}/'>{{ note.title }}</a>
+            <a class="note-card" href='{% url 'note' note.id %}'>{{ note.title }}</a>
             {% empty %}
             <p class="empty-state">No notes yet. Add your first one below.</p>
             {% endfor %}
