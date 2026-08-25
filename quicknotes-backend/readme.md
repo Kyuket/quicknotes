@@ -46,3 +46,9 @@ python manage.py runserver
 ```
 
 The API will be available at `http://localhost:8000/api/`.
+
+# Docker Example
+
+```
+ docker build -t quicknotes . && docker run -it --rm -p 8000:8000 quicknotes
+```
