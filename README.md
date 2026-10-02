@@ -1,75 +1,54 @@
-# React + TypeScript + Vite
+# QuickNotes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A project for keeping track of notes. Take notes for any occasion and organize them into collections.
 
-Currently, two official plugins are available:
+Available API endpoints are defined in `urls.py`. Sample requests for exercising the API are in `api.http`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project was originally built using Django templates (see `quicknotes_site`), but that implementation is likely outdated in favor of the DRF API.
 
-## React Compiler
+## Running the Project Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**1. Create and activate a virtual environment:**
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+**2. Install dependencies:**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+pip install -r requirements.txt
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**3. Set up environment variables:**
 
+Copy `.env-example` to `.env` and fill in the values:
+
+```bash
+cp .env-example .env
+```
+
+**4. Set up the database:**
+
+This project expects a Postgres database. A local instance can be launched via Docker, or adjust `settings.py` to point at a different database backend/connection if preferred.
+
+Once your database is configured, run migrations:
+
+```bash
+python manage.py migrate
+```
+
+**5. Start the development server:**
+
+```bash
+python manage.py runserver
+```
+
+The API will be available at `http://localhost:8000/api/`.
+
+# Docker Example
+
+```
+ docker build -t quicknotes . && docker run -it --rm -p 8000:8000 quicknotes
 ```
