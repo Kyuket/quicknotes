@@ -10,9 +10,10 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny
+from django.http import HttpResponse
 
 def home(request):
-    return redirect('notes')
+    return HttpResponse('Hi there!!')
 
 @api_view(["POST"])
 @authentication_classes([])
